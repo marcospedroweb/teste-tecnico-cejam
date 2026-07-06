@@ -5,7 +5,7 @@ namespace MyFlix.Services.Interfaces;
 
 public interface IMovieService
 {
-  IReadOnlyList<Movie> GetAll();
+  Task<Movie> CreateAsync(CreateMovieDto createMovieDto);
 
-  Movie Create(CreateMovieDto createMovieDto);
+  Task<List<Movie>> GetAllAsync();
 }
