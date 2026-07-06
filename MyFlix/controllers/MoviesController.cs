@@ -34,4 +34,18 @@ public class MoviesController : ControllerBase
       newMovie);
   }
 
+  [HttpPut("{id}")]
+  public async Task<IActionResult> Update(int id, UpdateMovieDto updateMovieDto)
+  {
+    var updatedMovie = await _movieService.UpdateAsync(id, updateMovieDto);
+
+    if (updatedMovie == null)
+      return NotFound(new
+      {
+        message = "Movie not found."
+      });
+
+    return Ok(updatedMovie);
+  }
+
 }
