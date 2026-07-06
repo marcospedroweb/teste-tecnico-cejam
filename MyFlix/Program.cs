@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using MyFlix.Data;
 using MyFlix.Services;
 using MyFlix.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlite("Data Source=myflix.db");
+});
 
 builder.Services.AddControllers();
 

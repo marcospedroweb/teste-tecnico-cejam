@@ -1,8 +1,11 @@
+using MyFlix.DTOs;
 using MyFlix.Models;
 
 namespace MyFlix.Services.Interfaces;
 
 public interface IMovieService
 {
-  IReadOnlyList<Movie> GetAll();
+  Task<Movie> CreateAsync(CreateMovieDto createMovieDto);
+
+  Task<List<Movie>> GetAllAsync();
 }
