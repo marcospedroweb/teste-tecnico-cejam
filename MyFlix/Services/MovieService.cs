@@ -1,61 +1,40 @@
 using MyFlix.DTOs;
 using MyFlix.Models;
 using MyFlix.Services.Interfaces;
+using MyFlix.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace MyFlix.Services;
 
 public class MovieService : IMovieService
 {
-  private readonly List<Movie> _movies = new()
-  {
-    new Movie
-    {
-        Id = 1,
-        Title = "The Shawshank Redemption",
-        Year = 1994,
-        Genre = "Drama",
-        PosterUrl = "https://placehold.co/300x450?text=No+Poster",
-        Watched = true,
-        Rating = 5
-    },
-    new Movie
-    {
-        Id = 2,
-        Title = "The Godfather",
-        Year = 1972,
-        Genre = "Crime",
-        PosterUrl = "https://placehold.co/300x450?text=No+Poster",
-        Watched = true,
-        Rating = 5
-    },
-    new Movie
-    {
-        Id = 3,
-        Title = "The Dark Knight",
-        Year = 2008,
-        Genre = "Action",
-        PosterUrl = "https://placehold.co/300x450?text=No+Poster",
-        Watched = false
-    }
-  };
+  private readonly AppDbContext _context;
 
-  public IReadOnlyList<Movie> GetAll()
+  public MovieService(AppDbContext context)
   {
-    return _movies;
+    _context = context;
   }
 
-  public Movie Create(CreateMovieDto createMovieDto)
+  public async Task<Movie> CreateAsync(CreateMovieDto createMovieDto)
   {
     var newMovie = new Movie
     {
-      Id = _movies.Count + 1,
       Title = createMovieDto.Title,
       Year = createMovieDto.Year,
       Genre = createMovieDto.Genre,
-      PosterUrl = createMovieDto.PosterUrl
+      PosterUrl = createMovieDto.PosterUrl,
+      Watched = false,
+      Rating = null
     };
 
-    _movies.Add(newMovie);
+    _context.Movies.Add(newMovie);
+    await _context.SaveChangesAsync();
+
     return newMovie;
+  }
+
+  public async Task<List<Movie>> GetAllAsync()
+  {
+    return await _context.Movies.ToListAsync();
   }
 }
