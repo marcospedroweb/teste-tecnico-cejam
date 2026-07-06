@@ -61,4 +61,18 @@ public class MoviesController : ControllerBase
 
     return Ok(watchedMovie);
   }
+
+  [HttpDelete("{id}")]
+  public async Task<IActionResult> Delete(int id)
+  {
+    var result = await _movieService.DeleteAsync(id);
+
+    if (!result)
+      return NotFound(new
+      {
+        message = "Movie not found."
+      });
+
+    return NoContent();
+  }
 }
