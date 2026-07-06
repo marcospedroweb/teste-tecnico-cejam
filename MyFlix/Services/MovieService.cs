@@ -37,4 +37,22 @@ public class MovieService : IMovieService
   {
     return await _context.Movies.ToListAsync();
   }
+
+  public async Task<Movie?> UpdateAsync(int id, UpdateMovieDto updateMovieDto)
+  {
+    var movie = await _context.Movies.FindAsync(id);
+
+    if (movie == null)
+      return null;
+
+
+    movie.Title = updateMovieDto.Title;
+    movie.Year = updateMovieDto.Year;
+    movie.Genre = updateMovieDto.Genre;
+    movie.PosterUrl = updateMovieDto.PosterUrl;
+
+    await _context.SaveChangesAsync();
+
+    return movie;
+  }
 }
