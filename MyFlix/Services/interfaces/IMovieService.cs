@@ -12,4 +12,6 @@ public interface IMovieService
   Task<Movie?> UpdateAsync(int id, UpdateMovieDto updateMovieDto);
 
   Task<Movie?> WatchAsync(int id, WatchMovieDto watchMovieDto);
+
+  Task<bool> DeleteAsync(int id);
 }
