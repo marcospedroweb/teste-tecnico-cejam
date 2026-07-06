@@ -70,4 +70,17 @@ public class MovieService : IMovieService
 
     return movie;
   }
+
+  public async Task<bool> DeleteAsync(int id)
+  {
+    var movie = await _context.Movies.FindAsync(id);
+
+    if (movie == null)
+      return false;
+
+    _context.Movies.Remove(movie);
+    await _context.SaveChangesAsync();
+
+    return true;
+  }
 }
