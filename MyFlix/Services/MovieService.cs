@@ -55,4 +55,19 @@ public class MovieService : IMovieService
 
     return movie;
   }
+
+  public async Task<Movie?> WatchAsync(int id, WatchMovieDto watchMovieDto)
+  {
+    var movie = await _context.Movies.FindAsync(id);
+
+    if (movie == null)
+      return null;
+
+    movie.Watched = true;
+    movie.Rating = watchMovieDto.Rating;
+
+    await _context.SaveChangesAsync();
+
+    return movie;
+  }
 }
