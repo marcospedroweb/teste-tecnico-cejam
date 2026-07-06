@@ -9,6 +9,8 @@ public interface IMovieService
 
   Task<List<Movie>> GetAllAsync();
 
+  Task<Movie?> GetByIdAsync(int id);
+
   Task<Movie?> UpdateAsync(int id, UpdateMovieDto updateMovieDto);
 
   Task<Movie?> WatchAsync(int id, WatchMovieDto watchMovieDto);

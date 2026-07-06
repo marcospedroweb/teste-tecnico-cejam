@@ -9,6 +9,7 @@ namespace MyFlix.Controllers;
 public class MoviesController : ControllerBase
 {
   private readonly IMovieService _movieService;
+  private const string MovieNotFoundMessage = "Movie not found.";
 
   public MoviesController(IMovieService movieService)
   {
@@ -23,13 +24,28 @@ public class MoviesController : ControllerBase
     return Ok(movies);
   }
 
+  [HttpGet("{id}")]
+  public async Task<IActionResult> GetById(int id)
+  {
+    var movie = await _movieService.GetByIdAsync(id);
+
+
+    if (movie == null)
+      return NotFound(new
+      {
+        message = MovieNotFoundMessage
+      });
+
+    return Ok(movie);
+  }
+
   [HttpPost]
   public async Task<IActionResult> Create(CreateMovieDto createMovieDto)
   {
     var newMovie = await _movieService.CreateAsync(createMovieDto);
 
     return CreatedAtAction(
-      nameof(Get),
+      nameof(GetById),
       new { id = newMovie.Id },
       newMovie);
   }
@@ -42,7 +58,7 @@ public class MoviesController : ControllerBase
     if (updatedMovie == null)
       return NotFound(new
       {
-        message = "Movie not found."
+        message = MovieNotFoundMessage
       });
 
     return Ok(updatedMovie);
@@ -56,7 +72,7 @@ public class MoviesController : ControllerBase
     if (watchedMovie == null)
       return NotFound(new
       {
-        message = "Movie not found."
+        message = MovieNotFoundMessage
       });
 
     return Ok(watchedMovie);
@@ -70,7 +86,7 @@ public class MoviesController : ControllerBase
     if (!result)
       return NotFound(new
       {
-        message = "Movie not found."
+        message = MovieNotFoundMessage
       });
 
     return NoContent();
