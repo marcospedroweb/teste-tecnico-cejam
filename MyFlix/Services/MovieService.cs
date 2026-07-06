@@ -1,3 +1,4 @@
+using MyFlix.DTOs;
 using MyFlix.Models;
 using MyFlix.Services.Interfaces;
 
@@ -41,5 +42,20 @@ public class MovieService : IMovieService
   public IReadOnlyList<Movie> GetAll()
   {
     return _movies;
+  }
+
+  public Movie Create(CreateMovieDto createMovieDto)
+  {
+    var newMovie = new Movie
+    {
+      Id = _movies.Count + 1,
+      Title = createMovieDto.Title,
+      Year = createMovieDto.Year,
+      Genre = createMovieDto.Genre,
+      PosterUrl = createMovieDto.PosterUrl
+    };
+
+    _movies.Add(newMovie);
+    return newMovie;
   }
 }
