@@ -48,4 +48,17 @@ public class MoviesController : ControllerBase
     return Ok(updatedMovie);
   }
 
+  [HttpPost("{id}/watch")]
+  public async Task<IActionResult> Watch(int id, WatchMovieDto watchMovieDto)
+  {
+    var watchedMovie = await _movieService.WatchAsync(id, watchMovieDto);
+
+    if (watchedMovie == null)
+      return NotFound(new
+      {
+        message = "Movie not found."
+      });
+
+    return Ok(watchedMovie);
+  }
 }
