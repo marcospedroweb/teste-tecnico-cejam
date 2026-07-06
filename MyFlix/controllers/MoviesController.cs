@@ -16,26 +16,22 @@ public class MoviesController : ControllerBase
   }
 
   [HttpGet]
-  public IActionResult Get()
+  public async Task<IActionResult> Get()
   {
-    var movies = _movieService.GetAll();
+    var movies = await _movieService.GetAllAsync();
 
     return Ok(movies);
   }
 
   [HttpPost]
-  public IActionResult Create([FromBody] CreateMovieDto createMovieDto)
+  public async Task<IActionResult> Create(CreateMovieDto createMovieDto)
   {
-    if (string.IsNullOrWhiteSpace(createMovieDto.Title))
-    {
-      return BadRequest(new
-      {
-        message = "Title is required."
-      });
-    }
+    var newMovie = await _movieService.CreateAsync(createMovieDto);
 
-    var newMovie = _movieService.Create(createMovieDto);
-
-    return CreatedAtAction(nameof(Get), new { id = newMovie.Id }, newMovie);
+    return CreatedAtAction(
+      nameof(Get),
+      new { id = newMovie.Id },
+      newMovie);
   }
+
 }
