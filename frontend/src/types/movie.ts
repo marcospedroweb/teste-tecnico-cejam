@@ -7,3 +7,12 @@ export interface Movie {
   watched: boolean;
   rating?: number;
 }
+
+export interface MovieFormData {
+  title: string;
+  year: number;
+  genre: string;
+  posterUrl: string;
+  watched: boolean;
+  rating: number;
+}

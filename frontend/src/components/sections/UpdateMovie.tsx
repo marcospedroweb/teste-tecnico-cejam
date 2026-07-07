@@ -4,9 +4,9 @@ import { useForm } from 'react-hook-form';
 import { movieService } from '@/services/movie.service';
 import { CreateMovieDto } from '@/types/dto';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import MovieForm from '../movies/MovieForm';
-import { MovieFormData } from '@/types/movie';
+import { Movie, MovieFormData } from '@/types/movie';
 
 type FormValues = {
   title: string;
@@ -17,7 +17,7 @@ type FormValues = {
   rating: number;
 };
 
-function NewMovie() {
+function UpdateMovie() {
   const form = useForm<MovieFormData>({
     defaultValues: {
       title: '',
@@ -28,37 +28,55 @@ function NewMovie() {
       rating: 0,
     },
   });
+  const params = useParams<{ id: string }>();
 
   const [loading, setLoading] = React.useState(false);
   const onSubmit = async (data: CreateMovieDto) => {
     try {
       setLoading(true);
-      await movieService.create(data);
+      await movieService.update(Number(params.id), data);
 
-      toast.success('Filme adicionado com sucesso!');
+      toast.success('Filme atualizado com sucesso!');
       router.push('/');
     } catch (error) {
       console.error(error);
-      toast.error('Erro ao adicionar filme.');
+      toast.error('Erro ao atualizar filme.');
     } finally {
       setLoading(false);
     }
   };
   const router = useRouter();
 
+  React.useEffect(() => {
+    const fetchMovie = async () => {
+      const movie = await movieService.getById(Number(params.id));
+
+      form.reset({
+        title: movie.title,
+        year: movie.year,
+        genre: movie.genre,
+        posterUrl: movie.posterUrl,
+        watched: movie.watched,
+        rating: movie.rating ?? 0,
+      });
+    };
+
+    fetchMovie();
+  }, [params.id, form]);
+
   return (
     <div className="flex flex-col gap-4 w-full bg-[#222222] p-8 rounded-lg shadow-md">
       <h2 className="text-4xl font-bold text-white text-center mb-4">
-        Adicione o filme
+        Atualize o filme
       </h2>
       <MovieForm
         form={form}
         onSubmit={onSubmit}
-        submitLabel="Adicionar Filme"
+        submitLabel="Atualizar Filme"
         loading={loading}
       />
     </div>
   );
 }
 
-export default NewMovie;
+export default UpdateMovie;
