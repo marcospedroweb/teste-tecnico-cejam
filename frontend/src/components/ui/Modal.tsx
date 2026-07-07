@@ -14,8 +14,8 @@ function Modal({ open, title, children, onClose }: ModalProps) {
   if (!open) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
-      <div className="w-full max-w-md rounded-xl bg-[#222222] shadow-xl animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
+      <div className="w-[90%] max-w-md rounded-xl bg-[#222222] shadow-xl animate-in fade-in zoom-in-95 duration-200">
         <div className="flex items-center justify-between border-b border-zinc-700 p-5">
           <h2 className="text-xl font-semibold text-white">{title}</h2>
 
