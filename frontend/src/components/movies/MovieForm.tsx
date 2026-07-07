@@ -21,7 +21,7 @@ export default function MovieForm({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-      <Input label="Título" {...register('title')} />
+      <Input label="Título" {...register('title')} required />
       <Input
         label="Ano"
         type="number"
@@ -30,9 +30,10 @@ export default function MovieForm({
         })}
         min={1888}
         max={new Date().getFullYear()}
+        required
       />
-      <Input label="Gênero" {...register('genre')} />
-      <Input label="Poster" {...register('posterUrl')} />
+      <Input label="Gênero" {...register('genre')} required />
+      <Input label="Poster" {...register('posterUrl')} required />
       <Button type="submit" disabled={loading}>
         {loading ? 'Salvando...' : submitLabel}
       </Button>
