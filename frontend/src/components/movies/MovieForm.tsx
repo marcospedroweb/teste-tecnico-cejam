@@ -1,9 +1,6 @@
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
-import {
-  SubmitHandler,
-  UseFormReturn,
-} from 'node_modules/react-hook-form/dist/types/form';
+import { SubmitHandler, UseFormReturn } from 'react-hook-form';
 import { MovieFormData } from '@/types/movie';
 
 interface MovieFormProps {
