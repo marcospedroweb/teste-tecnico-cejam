@@ -1,14 +1,23 @@
+import React from 'react';
 import { Movie } from '@/types/movie';
 import { RatingStars } from './RatingStars';
 import { Button } from '../ui/Button';
-import { FaPen } from 'react-icons/fa';
+import { FaPen, FaStar } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
+import { useRouter } from 'next/navigation';
+import ModalDelete from '../ui/ModalDelete';
+import ModalRate from '../ui/ModalRate';
 
 interface MovieCardProps {
   movie: Movie;
+  onUpdated: () => Promise<void>;
 }
 
-export default function MovieCard({ movie }: MovieCardProps) {
+export default function MovieCard({ movie, onUpdated }: MovieCardProps) {
+  const router = useRouter();
+  const [isDeleteOpen, setIsDeleteOpen] = React.useState(false);
+  const [isRateOpen, setIsRateOpen] = React.useState(false);
+
   return (
     <div className="overflow-hidden rounded-xl bg-[#333333] shadow-lg transition hover:-translate-y-1 hover:shadow-xl">
       <img
@@ -36,14 +45,39 @@ export default function MovieCard({ movie }: MovieCardProps) {
 
         <RatingStars value={movie.rating ?? 0} size={18} />
         <div className="flex justify-center gap-2 mt-6">
-          <Button className="bg-blue-400 hover:bg-blue-500 transition-all duration-300 ease-in w-full">
+          <Button
+            className="bg-blue-400 hover:bg-blue-500 transition-all duration-300 ease-in w-full"
+            onClick={() => {
+              router.push(`/movies/${movie.id}/edit`);
+            }}
+          >
             <FaPen />
           </Button>
-          <Button>
+          <Button
+            className="bg-yellow-400 hover:bg-yellow-500"
+            onClick={() => setIsRateOpen(true)}
+          >
+            <FaStar />
+          </Button>
+
+          <Button onClick={() => setIsDeleteOpen(true)}>
             <MdDelete />
           </Button>
         </div>
       </div>
+      <ModalDelete
+        open={isDeleteOpen}
+        onClose={() => setIsDeleteOpen(false)}
+        movieId={movie.id}
+        onSuccess={onUpdated}
+      />
+
+      <ModalRate
+        open={isRateOpen}
+        movieId={movie.id}
+        onClose={() => setIsRateOpen(false)}
+        onSuccess={onUpdated}
+      />
     </div>
   );
 }

@@ -38,7 +38,7 @@ export function RatingStars({
         key={rating}
         type="button"
         onClick={() => onChange?.(rating)}
-        className="transition-transform duration-150 hover:scale-110 active:scale-95"
+        className="transition-transform duration-150 hover:scale-110 active:scale-95 cursor-pointer"
       >
         {star}
       </button>
