@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Montserrat, Roboto } from 'next/font/google';
 import './globals.css';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastProvider } from '@/components/ToastProvider';
 
 const montserrat = Montserrat({
   variable: '--font-montserrat',
@@ -29,6 +31,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col max-w-7xl mx-auto">
         {children}
+        <ToastProvider />
       </body>
     </html>
   );
