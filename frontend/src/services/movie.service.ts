@@ -9,4 +9,9 @@ export const movieService = {
 
     return response.data;
   },
+
+  async getAll(): Promise<Movie[]> {
+    const response = await api.get<Movie[]>("/movies");
+    return response.data;
+  }
 }
