@@ -1,36 +1,186 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MyFlix Frontend
 
-## Getting Started
+Aplicação web desenvolvida para gerenciamento pessoal de filmes.
 
-First, run the development server:
+O usuário pode cadastrar, editar, remover, avaliar e controlar quais filmes já assistiu ou ainda deseja assistir.
+
+## Tecnologias utilizadas
+
+- Next.js
+- React
+- TypeScript
+- TailwindCSS
+- Axios
+- React Hook Form
+- React Toastify
+- React Icons
+
+## Funcionalidades
+
+- Adicionar filmes
+- Listar filmes
+- Editar informações dos filmes
+- Remover filmes
+- Marcar filme como assistido
+- Avaliar filmes com estrelas
+- Filtrar filmes:
+  - Todos
+  - Assistidos
+  - Para assistir
+- Modais de confirmação
+- Notificações de sucesso e erro
+- Loading com Skeleton
+- Layout responsivo
+
+## Estrutura do projeto
+
+```
+src
+├── app
+│   ├── page.tsx
+│   └── movies
+│       ├── new
+│       └── [id]
+│           └── edit
+│
+├── components
+│   ├── movies
+│   ├── sections
+│   ├── ui
+│   └── skeletons
+│
+├── services
+│   └── movie.service.ts
+│
+├── types
+│   ├── movie.ts
+│   └── dto.ts
+```
+
+## Pré-requisitos
+
+Antes de iniciar, tenha instalado:
+
+- Node.js 20 ou superior
+- npm
+
+Verifique:
+
+```bash
+node -v
+npm -v
+```
+
+## Instalação
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/seu-usuario/seu-repositorio.git
+```
+
+Entre na pasta frontend:
+
+```bash
+cd frontend
+```
+
+Instale as dependências:
+
+```bash
+npm install
+```
+
+## Variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto:
+
+```
+NEXT_PUBLIC_API_URL=http://localhost:5152/api
+```
+
+Essa variável define a URL da API backend.
+
+## Executando o projeto
+
+Modo desenvolvimento:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+A aplicação estará disponível em:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Build de produção
 
-## Learn More
+Criar build:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Executar produção:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm start
+```
 
-## Deploy on Vercel
+## Comunicação com API
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Todas as chamadas HTTP estão centralizadas em:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/services/movie.service.ts
+```
+
+Responsável por:
+
+- Buscar filmes
+- Criar filmes
+- Atualizar filmes
+- Remover filmes
+- Avaliar filmes
+
+## Componentes reutilizáveis
+
+O projeto utiliza componentes reutilizáveis:
+
+- Button
+- Input
+- Checkbox
+- Modal
+- MovieCard
+- MovieForm
+- RatingStars
+
+## Executando o projeto completo
+
+Primeiro execute o backend:
+
+```bash
+cd MyFlix
+
+dotnet run
+```
+
+Depois execute o frontend:
+
+```bash
+cd frontend
+
+npm run dev
+```
+
+Acesse:
+
+```
+http://localhost:3000
+```
+
+## Observações
+
+O frontend depende da API backend estar em execução para carregar e manipular os filmes.
