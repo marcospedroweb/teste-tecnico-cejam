@@ -76,7 +76,7 @@ npm -v
 Clone o repositório:
 
 ```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
+git clone https://github.com/marcospedroweb/teste-tecnico-cejam.git
 ```
 
 Entre na pasta frontend:
