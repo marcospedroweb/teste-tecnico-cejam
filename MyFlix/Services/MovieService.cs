@@ -68,7 +68,7 @@ public class MovieService : IMovieService
     if (movie == null)
       return null;
 
-    movie.Watched = true;
+    movie.Watched = watchMovieDto.Watched;
     movie.Rating = watchMovieDto.Rating;
 
     await _context.SaveChangesAsync();
