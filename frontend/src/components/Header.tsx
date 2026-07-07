@@ -1,11 +1,18 @@
-import React from 'react';
+import Link from 'next/link';
+import { Button } from './ui/Button';
+import { FaPlus } from 'react-icons/fa6';
 
 function Header() {
   return (
     <header className="flex items-center justify-between w-full py-6 ">
       <h1 className="text-4xl font-bold text-white">
-        My<span className="text-[#e5234b]">Flix</span>
+        <Link href="/">
+          My<span className="text-[#e5234b]">Flix</span>
+        </Link>
       </h1>
+      <Button link href="/movies/new">
+        <FaPlus className="mr-2" /> Adicionar filme
+      </Button>
     </header>
   );
 }
