@@ -124,10 +124,10 @@ Frontend:
 http://localhost:3000
 ```
 
-Backend:
+Backend API Route:
 
 ```
-http://localhost:5152/swagger
+http://localhost:5152/api
 ```
 
 Swagger:
