@@ -180,7 +180,3 @@ O arquivo `README.md` contém todas as informações necessárias para:
 - Instalar as dependências
 - Configurar as variáveis de ambiente
 - Executar a aplicação Next.js
-
-```
-
-```
