@@ -127,7 +127,7 @@ http://localhost:3000
 Backend:
 
 ```
-http://localhost:5152
+http://localhost:5152/swagger
 ```
 
 Swagger:
